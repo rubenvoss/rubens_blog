@@ -1,0 +1,1 @@
+venv/bin/python rubens_blog/manage.py runserver localhost:3000
