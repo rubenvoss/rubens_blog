@@ -1,0 +1,1 @@
+rubens_blog/manage.py
