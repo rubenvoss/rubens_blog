@@ -1,8 +1,11 @@
 """
-This Python Script takes markdown files in the static Folder and converts them to HTML Files.
+This Python Script takes markdown files in a Folder and converts them to HTML Files.
+Usage: python generate_static_pages.py /path/to/folder
 """
 import sys, os
 import markdown
+
+folder_path = sys.argv[1]
 
 def convert_md_to_html(markdown_filepath=None, html_filepath=None):
     if markdown_filepath is None or html_filepath is None:
@@ -13,7 +16,7 @@ def convert_md_to_html(markdown_filepath=None, html_filepath=None):
     with open(html_filepath, "w") as html_file:
         html_file.write(html_string)
 
-with os.scandir("static/") as static_folder:
+with os.scandir(folder_path) as static_folder:
     print("Converted Files:")
     for markdown_file in static_folder:
         if markdown_file.name.endswith(".md") and markdown_file.is_file():
