@@ -1,3 +1,6 @@
+"""
+This Python Script takes markdown files in the static Folder and converts them to HTML Files.
+"""
 import sys, os
 import markdown
 
