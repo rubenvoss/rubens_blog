@@ -1,3 +1,4 @@
+{% load post_conversion %}
 <!doctype html>
 <html lang="en-US">
   <head>
@@ -6,6 +7,6 @@
   </head>
   <body>
     <h1>{{ post.title }}</h1>
-    <p>{{ post.content | safe }}</p>
+    <p>{{ post.content | convert_markdown }}</p>
   </body>
 </html>
