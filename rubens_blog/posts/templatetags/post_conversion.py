@@ -8,5 +8,6 @@ register = template.Library()
 @register.filter
 @stringfilter
 def convert_markdown(content):
-    md = markdown.Markdown(extensions=["fenced_code"])
+    md = markdown.Markdown(
+        extensions=["fenced_code", "codehilite"])
     return mark_safe(md.convert(content))
