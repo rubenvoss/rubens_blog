@@ -1,0 +1,6 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% load post_conversion %}
+<h1>Title: {{ post.title }}</h1>
+<p>Content: {{ post.content | convert_markdown }}</p>
+{% endblock %}
