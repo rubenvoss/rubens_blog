@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% load post_conversion %}
+
+<div style="display:block; width:100%;">
+    <div style="width:50%; float: left; display: inline-block;">
+        <h1>Edit:</h1>
+        
+    </div>
+    <div style="width:50%; float: left; display: inline-block;">#
+        <h1>Title: {{ post.title }}</h1>
+        <p>Content: {{ post.content | convert_markdown }}</p>
+    </div>
+</div>
+{% endblock %}

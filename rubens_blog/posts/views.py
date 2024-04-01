@@ -6,3 +6,6 @@ class PostListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     model = Post
+
+class PostEditView(generic.DetailView):
+    model = Post
