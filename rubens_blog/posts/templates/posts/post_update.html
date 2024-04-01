@@ -5,7 +5,13 @@
 <div style="display:block; width:100%;">
     <div style="width:50%; float: left; display: inline-block;">
         <h1>Edit:</h1>
-        
+            <form action="" method="post">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Submit" />
+            </form>        
     </div>
     <div style="width:50%; float: left; display: inline-block;">#
         <h1>Title: {{ post.title }}</h1>
