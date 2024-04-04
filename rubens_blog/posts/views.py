@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, CreateView
@@ -16,3 +17,6 @@ class PostUpdateView(UpdateView):
 class PostCreateView(CreateView):
     model = Post
     fields = [ "title", "content" ]
+
+def convert_markdown(request):
+    return HttpResponse("hello world")
