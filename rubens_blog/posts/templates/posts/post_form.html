@@ -9,15 +9,14 @@
         <form action="" method="post">
         {% csrf_token %}
         {% render_field form.title %}
-        {% render_field form.content hx-post="/posts/convert_markdown/" hx-trigger="keyup" hx-target="#post_error" hx-swap="innerHTML" %}
-        <div id="post_error">test</div>
-
+        {% render_field form.content hx-post="/posts/convert_markdown/" hx-trigger="keyup" hx-target="#post_content" hx-swap="innerHTML" %}
+        
         <input type="submit" value="View Post & Save" />
-        </form>
-    </div>
+    </form>
+</div>
     <div style="width:50%; float: left; display: inline-block;">#
         <h1>Title: {{ post.title }}</h1>
-        <p>Content: {{ post.content | convert_markdown }}</p>
+        <p id="post_content">test</p>
     </div>
 </div>
 {% endblock %}

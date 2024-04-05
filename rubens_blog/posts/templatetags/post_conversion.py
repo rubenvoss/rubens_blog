@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.filter
 @stringfilter
-def convert_markdown(content):
+def return_markdown(content):
     md = markdown.Markdown(
         extensions=["fenced_code", "codehilite"])
     return mark_safe(md.convert(content))
