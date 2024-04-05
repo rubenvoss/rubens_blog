@@ -3,4 +3,5 @@
 {% load post_conversion %}
 <h1>Title: {{ post.title }}</h1>
 <p>Content: {{ post.content | return_markdown }}</p>
+<a href={% url "post_update" pk=post.pk %}>edit</a>
 {% endblock %}
