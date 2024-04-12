@@ -4,21 +4,26 @@
 {% load post_conversion %}
 {% load widget_tweaks %}
 
-<div class="container">
+<div style="width: 100%; display: block;">
 
-    <div style="width:50%; float: left; display: inline-block;">
+    <div style="width: 50%; float: left;">
         <div class="form-group">
             <form method="post">
                 {% csrf_token %}
-                {% render_field form.title %}
-                {% render_field form.content hx-post="/posts/convert_markdown/" hx-trigger="keyup delay:500ms" hx-target="#post_content" hx-swap="innerHTML" %}
+                <div style="display: block; margin-bottom: 10px;">
+                    {% render_field form.title %}
+                </div>
+                <div style="display: block; margin-bottom: 10px;">
+                    {% render_field form.content hx-post="/posts/convert_markdown/" hx-trigger="keyup delay:500ms" hx-target="#post_content" hx-swap="innerHTML" %}
+                </div>
+
                 
-                <input type="submit" value="View Post & Save" />
+                <input type="submit" value="View Post & Save" style="display: block; margin-top: 10px;">
             </form>
         </div>
     </div>
 
-    <div style="width:50%; float: left; display: inline-block;">
+    <div style="width: 50%; float: left;">
         <h1 id="post_title">{{ post.title }}</h1>
         <div id="post_content">{{ post.content | return_markdown }}</div>
     </div>
