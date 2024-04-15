@@ -24,6 +24,6 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt 
 export ENV_NAME=production
-scp -r rubens_blog/rubens_blog/settings/ rubens-blog-production:/srv/www/rubens_blog/rubens_blog/rubens_blog
+rsync -r rubens_blog/rubens_blog/settings/*.py rubens-blog-production:/srv/www/rubens_blog/rubens_blog/rubens_blog/settings/
 
 ```
