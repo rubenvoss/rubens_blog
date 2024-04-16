@@ -9,7 +9,7 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8" >> ~/.bashrc
 
 apt update && apt upgrade
-apt-get install git postgresql nginx python3.11-venv
+apt-get install git postgresql postgresql-contrib nginx python3.11-venv
 
 apt-get install unattended-upgrades
 systemctl start unattended-upgrades
@@ -29,5 +29,14 @@ export ENV_NAME=production
 rsync -r rubens_blog/rubens_blog/settings/*.py rubens-blog-production:/srv/www/rubens_blog/rubens_blog/rubens_blog/settings/
 
 # back on prod
-production_run.bash
+sudo -u postgres psql
+
+CREATE DATABASE rubens_blog;
+CREATE USER ruben WITH PASSWORD 'password';
+ALTER ROLE ruben SET client_encoding TO 'utf8';
+ALTER ROLE ruben SET default_transaction_isolation TO 'read committed';
+ALTER ROLE ruben SET timezone TO 'CET';
+GRANT ALL PRIVILEGES ON DATABASE rubens_blog TO ruben;
+\q
+
 ```
