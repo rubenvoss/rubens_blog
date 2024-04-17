@@ -16,3 +16,4 @@ gunicorn==21.2.0
 
 # postgresql database adapter
 psycopg2==2.9.9
+psycopg2-binary==2.9.9
