@@ -62,10 +62,14 @@ systemctl enable nginx.service
 systemctl start nginx
 
 
+
 # gunicorn
 rsync
-systemctl enable gunicorn.service
-systemctl enable gunicorn.socket
+systemctl daemon-reload
+systemctl enable gunicorn
+systemctl start gunicorn
+# debug gunicorn
+export ENV_NAME=production && cd /srv/www/rubens_blog/rubens_blog && ../venv/bin/gunicorn rubens_blog.wsgi -b 127.0.0.1:8000
 
 
 cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && python manage.py runserver 0.0.0.0:80
