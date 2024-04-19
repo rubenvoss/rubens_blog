@@ -1,0 +1,26 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+Environment="ENV_NAME=production"
+Type=notify
+# the specific user that our service will run as
+# root is not optional
+User=root
+Group=root
+
+# another option for an even more restricted service is
+# DynamicUser=yes
+# see http://0pointer.net/blog/dynamic-users-with-systemd.html
+RuntimeDirectory=gunicorn
+WorkingDirectory=/srv/www/rubens_blog/rubens_blog
+ExecStart=/srv/www/rubens_blog/venv/bin/gunicorn rubens_blog.wsgi
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

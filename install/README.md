@@ -33,15 +33,17 @@ sudo -u postgres psql
 
 https://gist.github.com/axelbdt/74898d80ceee51b69a16b575345e8457
 CREATE DATABASE rubens_blog;
-\c rubens_blog
+\connect rubens_blog
 CREATE USER ruben WITH PASSWORD 'password';
+# psql 15
+CREATE SCHEMA rubens_blog_schema AUTHORIZATION ruben;
 ALTER ROLE ruben SET client_encoding TO 'utf8';
 ALTER ROLE ruben SET default_transaction_isolation TO 'read committed';
 ALTER ROLE ruben SET timezone TO 'CET';
 GRANT ALL PRIVILEGES ON DATABASE rubens_blog TO ruben;
 ALTER DATABASE rubens_blog OWNER TO ruben;
-GRANT ALL ON SCHEMA public TO ruben;
-GRANT ALL ON SCHEMA public TO public;
+# GRANT ALL ON SCHEMA public TO ruben;
+# GRANT ALL ON SCHEMA public TO public;
 \q
 
 cat /usr/lib/systemd/system/postgresql.service
@@ -54,6 +56,18 @@ systemctl status postgresql
 apt install ufw
 ufw allow 80
 
-cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && python manage.py runserver 0.0.0.0:80
+# nginx
+rsync install/nginx.conf rubens-blog-production:/etc/nginx/nginx.conf
+systemctl enable nginx.service
+systemctl start nginx
 
+
+# gunicorn
+rsync
+systemctl enable gunicorn.service
+systemctl enable gunicorn.socket
+
+
+cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && python manage.py runserver 0.0.0.0:80
+cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && /srv/www/rubens_blog/venv/bin/gunicorn rubens_blog.wsgi
 ```
