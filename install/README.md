@@ -3,10 +3,16 @@
 ## How to setup
 ### Add a user for the ssh login
 ```
+# set vi as editor, fix env language perl bug (https://stackoverflow.com/questions/2499794/how-to-fix-a-locale-setting-warning-from-perl)
+
 echo "export EDITOR='vi'
 export VISUAL='vi'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8" >> ~/.bashrc
+
+# set time & date 
+timedatectl set-timezone Europe/Berlin
+
 
 apt update && apt upgrade
 apt-get install git postgresql postgresql-contrib nginx python3.11-venv python3-dev libpq-dev gcc
@@ -24,6 +30,11 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt 
 export ENV_NAME=production
+
+# make a webhook to automatically update Repo
+apt install webhook
+# test 
+/usr/bin/webhook -hooks /srv/www/rubens_blog/install/hooks.json -verbose
 
 # back on local
 rsync -r rubens_blog/rubens_blog/settings/*.py rubens-blog-production:/srv/www/rubens_blog/rubens_blog/rubens_blog/settings/
