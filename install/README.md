@@ -96,3 +96,5 @@ export ENV_NAME=production && cd /srv/www/rubens_blog/rubens_blog && ../venv/bin
 cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && python manage.py runserver 0.0.0.0:80
 cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && /srv/www/rubens_blog/venv/bin/gunicorn rubens_blog.wsgi
 ```
+
+test
