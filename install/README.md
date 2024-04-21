@@ -15,12 +15,15 @@ timedatectl set-timezone Europe/Berlin
 
 
 apt update && apt upgrade
+# split package installation
 apt-get install git postgresql postgresql-contrib nginx python3.11-venv python3-dev libpq-dev gcc
 
 apt-get install unattended-upgrades
 systemctl start unattended-upgrades
 systemctl enable unattended-upgrades
 unattended-upgrades --dry-run --debug
+# where are the logs?
+
 
 mkdir -p /srv/www/
 cd /srv/www
@@ -35,6 +38,7 @@ export ENV_NAME=production
 apt install webhook
 # test 
 /usr/bin/webhook -hooks /srv/www/rubens_blog/install/hooks.json -verbose
+# where are the logs?
 
 # back on local
 rsync -r rubens_blog/rubens_blog/settings/*.py rubens-blog-production:/srv/www/rubens_blog/rubens_blog/rubens_blog/settings/
@@ -63,14 +67,19 @@ systemctl daemon-reload # load the updated service file from disk
 systemctl enable postgresql
 systemctl start postgresql
 systemctl status postgresql
+# where are the logs?
+
 
 apt install ufw
 ufw allow 80
+# where are the logs?
+
 
 # nginx
 rsync install/nginx.conf rubens-blog-production:/etc/nginx/nginx.conf
 systemctl enable nginx.service
 systemctl start nginx
+# where are the logs?
 
 
 
@@ -81,8 +90,11 @@ systemctl enable gunicorn
 systemctl start gunicorn
 # debug gunicorn
 export ENV_NAME=production && cd /srv/www/rubens_blog/rubens_blog && ../venv/bin/gunicorn rubens_blog.wsgi -b 127.0.0.1:8000
+# where are the logs?
 
 
 cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && python manage.py runserver 0.0.0.0:80
 cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && /srv/www/rubens_blog/venv/bin/gunicorn rubens_blog.wsgi
 ```
+
+test
