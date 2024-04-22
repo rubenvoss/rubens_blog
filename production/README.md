@@ -38,6 +38,11 @@ export ENV_NAME=production
 apt install webhook
 # test 
 /usr/bin/webhook -hooks /srv/www/rubens_blog/install/hooks.json -verbose
+# install service 
+ln -s /srv/www/rubens_blog/production/webhook.service /etc/systemd/system/webhook.service
+systemctl daemon-reload
+systemctl enable webhook
+systemctl start webhook
 # where are the logs?
 
 # back on local
