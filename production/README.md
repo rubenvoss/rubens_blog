@@ -16,14 +16,13 @@ timedatectl set-timezone Europe/Berlin
 
 apt update && apt upgrade
 # split package installation
-apt-get install git postgresql postgresql-contrib nginx python3.11-venv python3-dev libpq-dev gcc
+apt install git nginx python3.11-venv python3-dev libpq-dev gcc
 
-apt-get install unattended-upgrades
-systemctl start unattended-upgrades
+apt install unattended-upgrades
 systemctl enable unattended-upgrades
+systemctl start unattended-upgrades
 unattended-upgrades --dry-run --debug
 # where are the logs?
-
 
 mkdir -p /srv/www/
 cd /srv/www
@@ -33,6 +32,9 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt 
 export ENV_NAME=production
+
+# back on local
+rsync -r rubens_blog/rubens_blog/settings/*.py rubens-blog-production:/srv/www/rubens_blog/rubens_blog/rubens_blog/settings/
 
 # make a webhook to automatically update Repo
 apt install webhook
@@ -45,10 +47,12 @@ systemctl enable webhook
 systemctl start webhook
 # where are the logs?
 
-# back on local
-rsync -r rubens_blog/rubens_blog/settings/*.py rubens-blog-production:/srv/www/rubens_blog/rubens_blog/rubens_blog/settings/
 
 # back on prod
+apt install postgresql postgresql-contrib
+ln -s /srv/www/rubens_blog/production/postgresql.service /etc/systemd/system/postgresql.service
+
+
 sudo -u postgres psql
 
 https://gist.github.com/axelbdt/74898d80ceee51b69a16b575345e8457
