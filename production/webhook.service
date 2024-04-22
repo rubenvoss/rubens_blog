@@ -1,7 +1,6 @@
 [Unit]
 Description=Webhook That updates rubens_blog upon Push by Github
 After=network.target
-ConditionPathExists=/etc/webhook.conf
 
 [Service]
 # root is not optional
