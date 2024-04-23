@@ -1,7 +1,7 @@
 [
     {
       "id": "rubens_blog_update",
-      "execute-command": "/srv/www/rubens_blog/install/update.sh",
+      "execute-command": "/srv/www/rubens_blog/production/update.sh",
       "command-working-directory": "/srv/www/rubens_blog"
     }
   ]
