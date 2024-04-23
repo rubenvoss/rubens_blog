@@ -101,6 +101,12 @@ systemctl start gunicorn
 export ENV_NAME=production && cd /srv/www/rubens_blog/rubens_blog && ../venv/bin/gunicorn rubens_blog.wsgi -b 127.0.0.1:8000
 # where are the logs?
 
+# django setup
+python manage.py migrate
+python manage.py createsuperuser
+
+# nginx & static files
+
 
 cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && python manage.py runserver 0.0.0.0:80
 cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && /srv/www/rubens_blog/venv/bin/gunicorn rubens_blog.wsgi
