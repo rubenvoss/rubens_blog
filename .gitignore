@@ -2,6 +2,9 @@
 rubens_blog/rubens_blog/settings/*
 !rubens_blog/rubens_blog/settings/__init__.py
 
+# hooks.json file with secret key
+production/hooks.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
