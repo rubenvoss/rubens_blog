@@ -38,6 +38,7 @@ rsync -r rubens_blog/rubens_blog/settings/*.py rubens-blog-production:/srv/www/r
 
 # make a webhook to automatically update Repo
 apt install webhook
+rsync production/hooks.json rubens-blog-production:/srv/www/rubens_blog/production/hooks.json
 # test 
 /usr/bin/webhook -hooks /srv/www/rubens_blog/install/hooks.json -verbose
 # install service 
