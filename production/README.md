@@ -113,4 +113,4 @@ cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && python mana
 cd /srv/www/rubens_blog/rubens_blog && export ENV_NAME=production && /srv/www/rubens_blog/venv/bin/gunicorn rubens_blog.wsgi
 ```
 
-test23
+test233
