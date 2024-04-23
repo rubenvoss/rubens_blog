@@ -85,7 +85,7 @@ ufw allow 80
 
 
 # nginx
-rsync install/nginx.conf rubens-blog-production:/etc/nginx/nginx.conf
+ln -s /srv/www/rubens_blog/production/nginx.conf /etc/nginx/nginx.conf
 systemctl enable nginx.service
 systemctl start nginx
 # where are the logs?
