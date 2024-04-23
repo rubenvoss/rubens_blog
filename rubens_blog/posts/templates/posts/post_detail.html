@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 {% block content %}
 {% load post_conversion %}
+test
 <h1>Title: {{ post.title }}</h1>
 <p>Content: {{ post.content | return_markdown }}</p>
 {% if request.user.is_authenticated %}
