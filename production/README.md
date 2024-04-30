@@ -5,25 +5,35 @@
 ```
 # set vi as editor, fix env language perl bug (https://stackoverflow.com/questions/2499794/how-to-fix-a-locale-setting-warning-from-perl)
 
-echo "export EDITOR='vi'
+# add this to your bashrc:
+
+# set vi as standard editor
+export EDITOR='vi'
 export VISUAL='vi'
+# fix perl bug
 export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8" >> ~/.bashrc
+export LC_ALL=en_US.UTF-8
+# Colorize ls:
+export LS_OPTIONS='--color=auto'
+eval "$(dircolors)"
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lA'
 
 # set time & date 
 timedatectl set-timezone Europe/Berlin
 
-
+# bring system up to date
 apt update && apt upgrade
-# split package installation
-apt install git nginx python3.11-venv python3-dev libpq-dev gcc
 
+# keeping system up to date in the background
 apt install unattended-upgrades
 systemctl enable unattended-upgrades
 systemctl start unattended-upgrades
 unattended-upgrades --dry-run --debug
 # where are the logs?
 
+apt install git python3.11-venv python3-dev libpq-dev gcc
 mkdir -p /srv/www/
 cd /srv/www
 git clone git@github.com:rubenvoss/rubens_blog.git
@@ -86,6 +96,7 @@ ufw allow 80
 
 
 # nginx
+apt install nginx
 ln -s /srv/www/rubens_blog/production/nginx.conf /etc/nginx/nginx.conf
 systemctl enable nginx.service
 systemctl start nginx
