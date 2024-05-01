@@ -1,4 +1,5 @@
 #!/bin/sh
+
 /usr/bin/git pull
 
 # collectstatic?
@@ -7,4 +8,4 @@
 # restart gunicorn
 systemctl reload gunicorn
 
-# postgresql       manage.py migrate?
+# postgresql  manage.py migrate?

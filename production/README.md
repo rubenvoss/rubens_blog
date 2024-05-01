@@ -19,6 +19,8 @@ eval "$(dircolors)"
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 alias l='ls $LS_OPTIONS -lA'
+#set production env
+export ENV_NAME=production
 
 # set time & date 
 timedatectl set-timezone Europe/Berlin
@@ -61,7 +63,6 @@ systemctl start webhook
 
 # back on prod
 apt install postgresql postgresql-contrib
-ln -s /srv/www/rubens_blog/production/postgresql.service /etc/systemd/system/postgresql.service
 
 
 sudo -u postgres psql
@@ -105,7 +106,8 @@ systemctl start nginx
 
 
 # gunicorn
-rsync
+apt install gunicorn
+ln -s /srv/www/rubens_blog/production/gunicorn.service /etc/systemd/system/gunicorn.service
 systemctl daemon-reload
 systemctl enable gunicorn
 systemctl start gunicorn
