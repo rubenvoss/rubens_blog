@@ -1,9 +1,10 @@
 # remove settings from github, since this is a public repo
-rubens_blog/rubens_blog/settings/*
-!rubens_blog/rubens_blog/settings/__init__.py
+rubens_blog_django/
 
 # hooks.json file with secret key
 production/hooks.json
+
+rubens_blog/media/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
