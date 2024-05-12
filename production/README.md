@@ -58,6 +58,7 @@ rsync production/hooks.json rubens-blog-production:/srv/www/rubens_blog/producti
 
 
 
+
 # install service 
 ln -s /srv/www/rubens_blog/production/webhook.service /etc/systemd/system/webhook.service
 systemctl daemon-reload
