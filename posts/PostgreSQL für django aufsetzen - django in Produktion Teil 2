@@ -1,0 +1,91 @@
+# PostgreSQL für django aufsetzen - django in Produktion (Teil 2)
+## Vorwort
+
+Im letzten Teil haben wir den Server bereit gemacht. In diesem Teil wird es um die Datenbank gehen. Ich habe mich für PostgreSQL entschieden, da es eine lange bewährte, viel genutzte Open - Source Datenbank ist. Ebenso ist Postgres natürlich skalierbar, d.h. wenn einmal mehr Nutzeranfragen kommen sollten kann man den Server anpassen, sodass eine große Anzahl von gleichzeitigen Anfragen verarbeitet werden kann.
+
+### PostgreSQL installieren
+
+Zuerst müssen wir das ganze via apt installieren:
+```
+sudo apt install postgresql postgresql-contrib
+```
+
+Jetzt können wir auf die PostgreSQL Datenbank zugreifen:
+```
+sudo -u postgres psql
+
+# Nun sollte das Prompt so ausschauen:
+psql (15.6 (Debian 15.6-0+deb12u1))
+Type "help" for help.
+
+postgres=#
+```
+
+### Datenbank & Nutzer erstellen
+
+Jetzt erstellst du deinen eigenen Datenbank Nutzer.
+
+```
+# Verbinde dich mit postgres
+sudo -u postgres psql
+
+# Erstelle deine Datenbank - benutze Natürlich deinen eigenen Namen ;)
+CREATE DATABASE meine_datenbank_xyz;
+
+# Nun kannst du dich mit deiner Datenbank Verbinden
+\connect meine_datenbank_xyz
+
+# Jetzt kannst du deinen eigenen Nutzer für die Datenbank mit Passwort erstellen.
+CREATE USER nutzer WITH PASSWORD 'password';
+```
+
+### 
+
+
+Ich habe meinen VPS auf hetzner gekauft, aber jeder andere Hosting-Anbieter geht an sich auch. 
+[Hetzner Cloud Link](https://www.hetzner.com/de/cloud/)
+
+### Nutzer erstellen
+
+Direkt nach kauf kommst du normalerweise als 'root' Nutzer auf den VPS. Der root Nutzer hat alle Rechte, ist deswegen nützlich aber auch gefährlich. Es ist eine gute Idee dir einen Nutzer anzulegen und diesem Nutzer sudo-rechte zu geben. Dadurch wird dein Server sicherer.
+```
+adduser mein_nutzername
+adduser mein_nutzername sudo
+```
+
+### Sicherheit
+
+Weil dein Server eine Produktive app hostet, sollte es am besten nicht möglich sein sich als root Nutzer über ssh einzuloggen. Vor allem wenn du das über das Passwort tun kannst **musst** du hier etwas für die Sicherheit des Servers tun. Es gibt ständig ssh log-in Versuche als root, das sind eben bots die versuchen auf deinen Server Zugriff zu bekommen. Um diesen den Eintritt zu verwehren musst du einfach das root-login ausschalten und nur das login über deinen personalisierten Nutzer erlauben.
+
+Generiere dir auf deinem eigenen Computer einen ssh-key, falls du noch keinen hast. Du kannst die Standard Einstellungen bestätigen. Nach Erstellung sollte sich der key unter ~/.ssh/ befinden. Es sollten sich dort nun eine id_rsa und eine id_rsa.pub - Datei befinden.
+Wenn du Windows nutzt, [hole dir WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
+```
+ssh-keygen
+ls -l ~/.ssh/id_rsa*
+```
+
+Jetzt kannst du deinen ssh-key bei deinem Server hinzufügen, um dich mit deinem Nutzer sicher einloggen zu können.
+```
+ssh-copy-id mein_nutzername@meine.server.ip
+# teste das ganze
+ssh mein_nutzername@meine.server.ip
+```
+
+Nun kannst du dem root user verbieten sich via ssh key / Passwort einzuloggen. Ebenso solltest du deine eigene Möglichkeit, dich via Passwort einzuloggen entfernen. Aber vorsicht! nachdem du die sshd_config verändert hast, kannst du dich nur noch mit deinem ssh-key einloggen! Verliere ihn nicht...
+```
+sudo vi /etc/ssh/sshd_config
+
+# Folgende Einstellungen setzen / ändern
+PasswordAuthentication no
+PubkeyAuthentication yes
+PermitRootLogin no
+
+# Jetzt probieren ob das ganze geklappt hat!!
+ssh my_username@my.server.ip
+ssh root@my.server.ip
+# Beim root login-versuch sollte folgende Nachricht erscheinen:
+root@xxx.xxx.xxx.xx: Permission denied (publickey).
+```
+
+Vielen Dank fürs lesen!
+Im nächsten Teil wird es um die Datenbank gehen...
