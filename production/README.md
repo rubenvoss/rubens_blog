@@ -52,7 +52,7 @@ rsync -r rubens_blog/rubens_blog/settings/*.py rubens-blog-production:/srv/www/r
 apt install webhook
 rsync production/hooks.json rubens-blog-production:/srv/www/rubens_blog/production/hooks.json
 # test 
-/usr/bin/webhook -hooks /srv/www/rubens_blog/install/hooks.json -verbose
+/usr/bin/webhook -hooks /srv/www/rubens_blog/production/hooks.json -verbose
 # install service 
 ln -s /srv/www/rubens_blog/production/webhook.service /etc/systemd/system/webhook.service
 systemctl daemon-reload
