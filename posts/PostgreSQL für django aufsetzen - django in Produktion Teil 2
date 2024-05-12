@@ -44,6 +44,7 @@ CREATE USER nutzer WITH PASSWORD 'password';
 django.db.migrations.exceptions.InconsistentMigrationHistory: Migration wagtailcore.0053_locale_model is applied before its dependency home.0002_create_homepage on database 'default'.
 
 
+
 Ich habe meinen VPS auf hetzner gekauft, aber jeder andere Hosting-Anbieter geht an sich auch. 
 [Hetzner Cloud Link](https://www.hetzner.com/de/cloud/)
 
