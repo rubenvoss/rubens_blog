@@ -11,20 +11,20 @@ INSTALLED_APPS = [
     "django_extensions",
 
     # wagtail cms
-    "wagtail_cms",
-    "wagtail.contrib.forms",
-    "wagtail.contrib.redirects",
-    "wagtail.embeds",
-    "wagtail.sites",
-    "wagtail.users",
-    "wagtail.snippets",
-    "wagtail.documents",
-    "wagtail.images",
-    "wagtail.search",
-    "wagtail.admin",
-    "wagtail",
-    "taggit",
-    "modelcluster",
+    # "wagtail_cms",
+    # "wagtail.contrib.forms",
+    # "wagtail.contrib.redirects",
+    # "wagtail.embeds",
+    # "wagtail.sites",
+    # "wagtail.users",
+    # "wagtail.snippets",
+    # "wagtail.documents",
+    # "wagtail.images",
+    # "wagtail.search",
+    # "wagtail.admin",
+    # "wagtail",
+    # "taggit",
+    # "modelcluster",
 
     "django.contrib.admin",
     "django.contrib.auth",
@@ -36,7 +36,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django_htmx.middleware.HtmxMiddleware",
-    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    # "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -112,5 +112,5 @@ STATIC_ROOT = "/srv/www/static"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-WAGTAIL_SITE_NAME = 'Rubens Blog'
-WAGTAILADMIN_BASE_URL = 'http://rubenvoss.de'
+# WAGTAIL_SITE_NAME = 'Rubens Blog'
+# WAGTAILADMIN_BASE_URL = 'http://rubenvoss.de'
