@@ -45,7 +45,7 @@ Seit PostgreSQL 15 gibt es bei der Sicherheit von Postgres ein Update.
 `Remove PUBLIC creation permission on the public schema (Noah Misch) The new default is one of the secure schema usage patterns that Section 5.9.6 has recommended...`
 Das hat Auswirkungen auf das Aufsetzen der Datenbank mit django. [Hier kannst du mehr darüber lesen](https://gist.github.com/axelbdt/74898d80ceee51b69a16b575345e8457)
 
-Wenn du also jetzt python manage.py migrate ausprobieren würdest, hättest du folgende Fehlermeldung: `permission denied for schema public`
+Wenn du also jetzt `python manage.py migrate` ausprobieren würdest, hättest du folgende Fehlermeldung: `permission denied for schema public`
 
 Deswegen müssen wir jetzt das Schema Autorisieren und deinen Nutzer etwas anpassen:
 ```
