@@ -10,7 +10,7 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("posts/", include("posts.urls")),
-    # path("", RedirectView.as_view(url="posts/", permanent=False), name="index")
+    path("", RedirectView.as_view(url="posts/", permanent=False), name="index")
 
     # path('cms_admin/', include(wagtailadmin_urls)),
     # path('documents/', include(wagtaildocs_urls)),
