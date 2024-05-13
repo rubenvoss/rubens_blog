@@ -21,3 +21,6 @@ echo "/srv/www/rubens_blog/venv/bin/python /srv/www/rubens_blog/rubens_blog/mana
 echo "systemctl reload gunicorn"
 systemctl reload gunicorn
 
+# restart webhook
+systemctl reload webhook
+
