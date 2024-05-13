@@ -9,3 +9,5 @@ psycopg2-binary==2.9.9
 wagtail==6.1
 
 markdown==3.6
+
+django_htmx==1.17.3
