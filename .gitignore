@@ -3,6 +3,7 @@ rubens_blog_django/
 
 rubens_blog/rubens_blog/settings
 !rubens_blog/rubens_blog/settings/__init__.py
+!rubens_blog/rubens_blog/settings/base.py
 # wagtail static
 # rubens_blog/static
 
