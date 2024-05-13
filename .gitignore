@@ -1,6 +1,8 @@
 # remove settings from github, since this is a public repo
 rubens_blog_django/
 
+rubens_blog/rubens_blog/settings
+!rubens_blog/rubens_blog/settings/__init__.py
 # wagtail static
 # rubens_blog/static
 
