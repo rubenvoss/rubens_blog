@@ -2,7 +2,7 @@
 rubens_blog_django/
 
 # wagtail static
-rubens_blog/static
+# rubens_blog/static
 
 # hooks.json file with secret key
 production/hooks.json
