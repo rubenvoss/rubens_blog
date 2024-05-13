@@ -6,7 +6,7 @@ psycopg2==2.9.9
 psycopg2-binary==2.9.9
 
 # content management system
-wagtail==6.1
+django==5.0.4
 
 markdown==3.6
 
