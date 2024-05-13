@@ -1,6 +1,9 @@
 # remove settings from github, since this is a public repo
 rubens_blog_django/
 
+# wagtail static
+rubens_blog/static
+
 # hooks.json file with secret key
 production/hooks.json
 
