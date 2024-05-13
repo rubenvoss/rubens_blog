@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "[------------STARTING UPDATE------------]
 echo "[EXECUTING COMMAND] export ENV_NAME=production"
 export ENV_NAME=production
 
