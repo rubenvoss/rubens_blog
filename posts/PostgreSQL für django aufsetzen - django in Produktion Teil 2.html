@@ -1,3 +1,12 @@
+
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
 <h1>PostgreSQL für django aufsetzen - django in Produktion (Teil 2)</h1>
 <h2>Vorwort</h2>
 <p>Im letzten Teil haben wir den Server bereit gemacht. In diesem Teil wird es um die Datenbank gehen. Ich habe mich für PostgreSQL entschieden, da es eine lange bewährte, viel genutzte Open - Source Datenbank ist. Ebenso ist Postgres natürlich skalierbar, d.h. wenn einmal mehr Nutzeranfragen kommen sollten kann man den Server anpassen, sodass eine große Anzahl von gleichzeitigen Anfragen verarbeitet werden kann.</p>
@@ -35,3 +44,10 @@ ALTER ROLE mein_nutzer SET client_encoding TO 'utf8';
 ALTER ROLE mein_nutzer SET default_transaction_isolation TO 'read committed';
 ALTER ROLE mein_nutzer SET timezone TO 'CET';</code></p>
 <p>Nun sollte <code>python manage.py migrate</code> funktionieren. Das werden wir uns im nächsten Teil anschauen!</p>
+
+<footer>
+    <ul>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="dsgvo.html">Datenschutzerklärung (DSGVO)</a></li>
+    </ul>
+</footer>

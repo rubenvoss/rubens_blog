@@ -1,6 +1,25 @@
 import os
 import markdown
 
+NAVIGATION_BAR = """
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+"""
+
+FOOTER = """
+<footer>
+    <ul>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="dsgvo.html">Datenschutzerklärung (DSGVO)</a></li>
+    </ul>
+</footer>
+"""
+
 def convert_md_to_html(md_file):
     """
     Converts a Markdown file to HTML.
@@ -25,9 +44,15 @@ def main():
         # Create the HTML file name by replacing .md extension with .html
         html_file_path = os.path.splitext(md_file_path)[0] + '.html'
 
-        # Write the HTML content to the HTML file
+        # Add navigation bar at the top
+        html_content_with_nav = f"{NAVIGATION_BAR}\n{html_content}"
+
+        # Add footer at the bottom
+        html_content_with_footer = f"{html_content_with_nav}\n{FOOTER}"
+
+        # Write the HTML content to the HTML file, overriding the old file
         with open(html_file_path, 'w', encoding='utf-8') as html_file:
-            html_file.write(html_content)
+            html_file.write(html_content_with_footer)
 
 if __name__ == "__main__":
     main()

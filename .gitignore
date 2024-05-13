@@ -1,6 +1,8 @@
 # remove settings from github, since this is a public repo
 rubens_blog_django/
 
+.DS_Store
+
 rubens_blog/rubens_blog/settings/production.py
 # wagtail static
 # rubens_blog/static
