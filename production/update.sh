@@ -10,8 +10,8 @@ echo "/srv/www/rubens_blog/venv/bin/python /srv/www/rubens_blog/rubens_blog/mana
 /srv/www/rubens_blog/venv/bin/python /srv/www/rubens_blog/rubens_blog/manage.py collectstatic --noinput
 
 # install new reqs
-echo "/srv/www/rubens_blog/venv/bin/pip install -r /srv/www/rubens_blog/requirements.txt"
-/srv/www/rubens_blog/venv/bin/pip install -r /srv/www/rubens_blog/requirements.txt
+echo "/srv/www/rubens_blog/venv/bin/pip install -r /srv/www/rubens_blog/requirements.txt | grep -v 'Requirement already satisfied:'"
+/srv/www/rubens_blog/venv/bin/pip install -r /srv/www/rubens_blog/requirements.txt | grep -v 'Requirement already satisfied:'
 
 # migrate db
 echo "/srv/www/rubens_blog/venv/bin/python /srv/www/rubens_blog/rubens_blog/manage.py migrate"
