@@ -6,6 +6,9 @@ rubens_blog/rubens_blog/settings
 # wagtail static
 # rubens_blog/static
 
+# sqlite db
+*.sqlite3
+
 # hooks.json file with secret key
 production/hooks.json
 
