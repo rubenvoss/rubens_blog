@@ -66,4 +66,4 @@ Nun sollte der python manage.py migrate Befehl funktionieren! Aber halt, hast du
 Viel Spaß beim Coden,
 Dein Ruben
 
-[Mein Blog]
+[Mein Blog](rubenvoss.de)
