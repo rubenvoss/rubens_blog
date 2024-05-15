@@ -115,6 +115,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # WAGTAIL_SITE_NAME = 'Rubens Blog'
 # WAGTAILADMIN_BASE_URL = 'http://rubenvoss.de'
 
+# SSL Setup
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 CSRF_TRUSTED_ORIGINS = ["https://*.rubenvoss.de", "https://rubenvoss.de"]
