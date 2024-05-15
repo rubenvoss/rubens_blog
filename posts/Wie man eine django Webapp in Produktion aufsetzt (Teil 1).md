@@ -30,12 +30,12 @@ Mit dieser Art und Weise kannst du deine App sehr günstig auf irgend einem Host
 
 ## Server Aufsetzen
 
-### VPS kaufen
+## VPS kaufen
 
 Ich habe meinen VPS auf hetzner gekauft, aber jeder andere Hosting-Anbieter geht an sich auch. 
 [Hetzner Cloud Link](https://www.hetzner.com/de/cloud/)
 
-### Nutzer erstellen
+## Nutzer erstellen
 
 Direkt nach kauf kommst du normalerweise als 'root' Nutzer auf den VPS. Der root Nutzer hat alle Rechte, ist deswegen nützlich aber auch gefährlich. Es ist eine gute Idee dir einen Nutzer anzulegen und diesem Nutzer sudo-rechte zu geben. Dadurch wird dein Server sicherer.
 ```
@@ -43,7 +43,7 @@ adduser mein_nutzername
 adduser mein_nutzername sudo
 ```
 
-### Sicherheit
+## Sicherheit
 
 Weil dein Server eine Produktive app hostet, sollte es am besten nicht möglich sein sich als root Nutzer über ssh einzuloggen. Vor allem wenn du das über das Passwort tun kannst **musst** du hier etwas für die Sicherheit des Servers tun. Es gibt ständig ssh log-in Versuche als root, das sind eben bots die versuchen auf deinen Server Zugriff zu bekommen. Um diesen den Eintritt zu verwehren musst du einfach das root-login ausschalten und nur das login über deinen personalisierten Nutzer erlauben.
 

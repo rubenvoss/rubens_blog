@@ -3,7 +3,7 @@
 
 Im letzten Teil haben wir den Server bereit gemacht. In diesem Teil wird es um die Datenbank gehen. Ich habe mich für PostgreSQL entschieden, da es eine lange bewährte, viel genutzte Open - Source Datenbank ist. Ebenso ist Postgres natürlich skalierbar, d.h. wenn einmal mehr Nutzeranfragen kommen sollten kann man den Server anpassen, sodass eine große Anzahl von gleichzeitigen Anfragen verarbeitet werden kann.
 
-### PostgreSQL installieren
+## PostgreSQL installieren
 
 Zuerst müssen wir das ganze via apt installieren:
 ```
@@ -21,7 +21,7 @@ Type "help" for help.
 postgres=#
 ```
 
-### Datenbank & Nutzer erstellen
+## Datenbank & Nutzer erstellen
 
 Jetzt erstellst du deinen eigenen Datenbank Nutzer.
 
@@ -39,7 +39,7 @@ CREATE DATABASE meine_datenbank_xyz;
 CREATE USER mein_nutzer WITH PASSWORD 'password';
 ```
 
-### Datenbank Schema und PSQL 15
+## Datenbank Schema und PSQL 15
 
 Seit PostgreSQL 15 gibt es bei der Sicherheit von Postgres ein Update.
 `Remove PUBLIC creation permission on the public schema (Noah Misch) The new default is one of the secure schema usage patterns that Section 5.9.6 has recommended...`
