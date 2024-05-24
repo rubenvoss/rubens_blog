@@ -4,8 +4,8 @@ from .views import PostListView, PostDetailView, PostUpdateView, PostCreateView,
 urlpatterns = [
     path("", PostListView.as_view(), name="posts"),
     path("add/", PostCreateView.as_view(), name="post_create"),
-    path("<int:pk>", PostDetailView.as_view(), name="post_detail"),
-    path("<int:pk>/update/", PostUpdateView.as_view(), name="post_update"),
+    path("<slug:slug>", PostDetailView.as_view(), name="post_detail"),
+    path("<slug:slug>/update/", PostUpdateView.as_view(), name="post_update"),
 ]
 
 htmx_urlpatterns = [
