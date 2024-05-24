@@ -7,7 +7,7 @@ from django.utils.text import slugify
 class Post(models.Model):
     title = models.CharField(max_length=200, blank=False)
     content = models.TextField()
-    slug = models.SlugField(max_length=200, blank=False, unique=True)
+    slug = models.SlugField(max_length=200, null=False, blank=False, unique=True)
 
     def get_slug(self):
         return slugify(self.title)
