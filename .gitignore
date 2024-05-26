@@ -7,6 +7,8 @@ rubens_blog/rubens_blog/settings/production.py
 # wagtail static
 # rubens_blog/static
 
+production/sendgrid.env
+
 # sqlite db
 *.sqlite3
 
