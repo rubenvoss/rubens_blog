@@ -1,7 +1,46 @@
 from pathlib import Path
+from decouple import config
+from decouple import Csv
+
+SECRET_KEY = config("SECRET_KEY")
+DEBUG = config("DEBUG", cast=bool)
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
+
+STATIC_URL = config("STATIC_URL")
+STATIC_ROOT = config("STATIC_ROOT")
+
+# SSL Setup
+SECURE_PROXY_SSL_HEADER = config("SECURE_PROXY_SSL_HEADER", cast=Csv(post_process=tuple))
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", cast=Csv())
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# database
+if config("ENV_NAME") == "development":
+    print("--- Using development Settings ---")
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+
+if config("ENV_NAME") == "production":
+    print("--- Using production Settings ---")
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "OPTIONS": {
+                    "options": "-c search_path=" + config("DB_SCHEMA")
+                },
+            "NAME": config("DB_NAME"),
+            "USER": config("DB_USER"),
+            "PASSWORD": config("DB_PASSWORD"),
+            "HOST": config("DB_HOST"),
+            "PORT": config("DB_PORT")
+        }
+    }
 
 # Application definition
 INSTALLED_APPS = [
@@ -9,23 +48,6 @@ INSTALLED_APPS = [
     "django_htmx",
     "widget_tweaks",
     "django_extensions",
-
-    # wagtail cms
-    # "wagtail_cms",
-    # "wagtail.contrib.forms",
-    # "wagtail.contrib.redirects",
-    # "wagtail.embeds",
-    # "wagtail.sites",
-    # "wagtail.users",
-    # "wagtail.snippets",
-    # "wagtail.documents",
-    # "wagtail.images",
-    # "wagtail.search",
-    # "wagtail.admin",
-    # "wagtail",
-    # "taggit",
-    # "modelcluster",
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -36,8 +58,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django_htmx.middleware.HtmxMiddleware",
-    # "wagtail.contrib.redirects.middleware.RedirectMiddleware",
-
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -97,24 +117,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = "static/"
-STATIC_ROOT = "/srv/www/static"
-
-# login required url
-# LOGIN_URL = "/admin"
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# WAGTAIL_SITE_NAME = 'Rubens Blog'
-# WAGTAILADMIN_BASE_URL = 'http://rubenvoss.de'
-
-# SSL Setup
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_TRUSTED_ORIGINS = ["https://*.rubenvoss.de", "https://rubenvoss.de"]
