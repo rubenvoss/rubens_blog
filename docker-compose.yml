@@ -23,18 +23,10 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /var/www/static/:/var/www/static/
+      - /srv/www/static/:/srv/www/static/
       - ./production/nginx.conf/:/etc/nginx/conf.d/nginx.conf:ro
     depends_on:
       - rubens_blog
-
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - /var/certbot/conf:/etc/letsencrypt/:rw
-      - /var/certbot/www/:/var/www/certbot/:rw
-    depends_on:
-      - nginx
 
   postgres:
     restart: always
