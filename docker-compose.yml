@@ -7,7 +7,7 @@ services:
     links:
       - postgres:postgres
     volumes:
-      - ./:/app
+      - ./rubens_blog/:/app
       - /var/www/static/:/var/www/static/
       - /var/certbot/conf:/etc/letsencrypt/:ro
     env_file: .env_production
