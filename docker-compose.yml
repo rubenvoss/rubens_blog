@@ -2,6 +2,8 @@ services:
   rubens_blog:
     restart: always
     build: ./rubens_blog
+    networks:
+      - proxy
     expose:
       - "8000"
     links:
