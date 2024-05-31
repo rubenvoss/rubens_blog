@@ -8,8 +8,7 @@ services:
       - postgres:postgres
     volumes:
       - ./rubens_blog/:/app
-      - /var/www/static/:/var/www/static/
-      - /var/certbot/conf:/etc/letsencrypt/:ro
+      - /srv/www/static/:/srv/www/static/
       - /etc/letsencrypt/live/rubenvoss.de/fullchain.pem:/etc/letsencrypt/live/rubenvoss.de/fullchain.pem
       - /etc/letsencrypt/live/rubenvoss.de/privkey.pem:/etc/letsencrypt/live/rubenvoss.de/privkey.pem
     env_file: .env_production
