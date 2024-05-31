@@ -17,6 +17,7 @@ services:
     command: /usr/local/bin/gunicorn rubens_blog.wsgi -w 2 -b 127.0.0.1:8000
     labels:
       - traefik.enable=true
+      - traefik.http.routers.mywhoami.rule=Host(`rubenvoss.de`) || Host(`www.rubenvoss.de`)
 
   postgres:
     restart: always
