@@ -10,6 +10,8 @@ services:
       - ./rubens_blog/:/app
       - /var/www/static/:/var/www/static/
       - /var/certbot/conf:/etc/letsencrypt/:ro
+      - /etc/letsencrypt/live/rubenvoss.de/fullchain.pem:/etc/letsencrypt/live/rubenvoss.de/fullchain.pem
+      - /etc/letsencrypt/live/rubenvoss.de/privkey.pem:/etc/letsencrypt/live/rubenvoss.de/privkey.pem
     env_file: .env_production
     environment:
       DEBUG: 'true'
