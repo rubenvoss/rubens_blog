@@ -13,8 +13,8 @@ services:
     env_file: .env_production
     environment:
       DEBUG: 'true'
-    command: sh -c "python3 manage.py makemigrations && python3 manage.py migrate --noinput && python3 manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py rubens_blog.wsgi"
-    # command: /usr/local/bin/gunicorn rubens_blog.wsgi -w 2 -b 127.0.0.1:8000
+    # command: sh -c "python3 manage.py makemigrations && python3 manage.py migrate --noinput && python3 manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py rubens_blog.wsgi"
+    command: /usr/local/bin/gunicorn --config gunicorn_config.py rubens_blog.wsgi
 
   nginx:
     image: nginx:alpine
