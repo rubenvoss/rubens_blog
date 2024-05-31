@@ -26,7 +26,7 @@ services:
       - /var/www/static/:/var/www/static/
       - ./production/nginx.conf/:/etc/nginx/conf.d/nginx.conf:ro
     depends_on:
-      - backend
+      - rubens_blog
 
   certbot:
     image: certbot/certbot:latest
