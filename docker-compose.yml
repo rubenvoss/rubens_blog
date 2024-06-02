@@ -9,6 +9,8 @@ services:
     volumes:
       - ./rubens_blog/:/app
       - /srv/www/static/:/srv/www/static/
+      - /etc/letsencrypt/live/rubenvoss.de/fullchain.pem:/etc/letsencrypt/live/rubenvoss.de/fullchain.pem
+      - /etc/letsencrypt/live/rubenvoss.de/privkey.pem:/etc/letsencrypt/live/rubenvoss.de/privkey.pem
     env_file: .env_production
     environment:
       DEBUG: 'true'
