@@ -1,34 +1,57 @@
 services:
-  rubens_blog:
-    restart: always
-    build: ./rubens_blog
-    ports:
-      - "8000:8000"
-    links:
-      - postgres:postgres
-    volumes:
-      - ./rubens_blog/:/app
-      - /srv/www/static/:/srv/www/static/
-      - /etc/letsencrypt/live/rubenvoss.de/fullchain.pem:/etc/letsencrypt/live/rubenvoss.de/fullchain.pem
-      - /etc/letsencrypt/live/rubenvoss.de/privkey.pem:/etc/letsencrypt/live/rubenvoss.de/privkey.pem
-    env_file: .env_production
-    environment:
-      DEBUG: 'true'
-    # command: sh -c "python3 manage.py makemigrations && python3 manage.py migrate --noinput && python3 manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py rubens_blog.wsgi"
-    command: /usr/local/bin/gunicorn --config gunicorn_config.py rubens_blog.wsgi
+  # rubens_blog:
+  #   restart: always
+  #   build: ./rubens_blog
+  #   ports:
+  #     - "8000:8000"
+  #   links:
+  #     - postgres:postgres
+  #   volumes:
+  #     - ./rubens_blog/:/app
+  #     - /srv/www/static/:/srv/www/static/
+  #     - /etc/letsencrypt/live/rubenvoss.de/fullchain.pem:/etc/letsencrypt/live/rubenvoss.de/fullchain.pem
+  #     - /etc/letsencrypt/live/rubenvoss.de/privkey.pem:/etc/letsencrypt/live/rubenvoss.de/privkey.pem
+  #   env_file: .env_production
+  #   environment:
+  #     DEBUG: 'true'
+  #   # command: sh -c "python3 manage.py makemigrations && python3 manage.py migrate --noinput && python3 manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py rubens_blog.wsgi"
+  #   command: /usr/local/bin/gunicorn --config gunicorn_config.py rubens_blog.wsgi
 
-  postgres:
-    container_name: postgres
-    restart: always
-    image: postgres:15.6
-    shm_size: 128mb
-    expose:
-      - "5432"
+  # postgres:
+  #   container_name: postgres
+  #   restart: always
+  #   image: postgres:15.6
+  #   shm_size: 128mb
+  #   expose:
+  #     - "5432"
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data/
+  #     - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+  #   env_file:
+  #     - .env_production
+
+  traefik:
+    image: "traefik:v3.0"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
     volumes:
-      - pgdata:/var/lib/postgresql/data/
-      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
-    env_file:
-      - .env_production
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  whoami:
+    image: "traefik/whoami"
+    container_name: "simple-service"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`rubenvoss.de`)"
+      - "traefik.http.routers.whoami.entrypoints=web"
 
 
 volumes:
