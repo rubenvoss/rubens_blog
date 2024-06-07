@@ -1,5 +1,8 @@
 .env_production
 
+# letsencrypt config
+letsencrypt/
+
 # remove settings from github, since this is a public repo
 rubens_blog_django/
 
