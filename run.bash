@@ -1,1 +1,1 @@
-venv/bin/python rubens_blog/manage.py runserver localhost:3000
+docker compose -f docker-compose.development.yml up --build
