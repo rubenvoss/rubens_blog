@@ -1,0 +1,12 @@
+services:
+  rubens_blog:
+    restart: always
+    build: 
+      context: ./rubens_blog
+      dockerfile: Dockerfile.development
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./rubens_blog/:/app
+    env_file: .env
+    command: python manage.py runserver 0.0.0.0:8000
