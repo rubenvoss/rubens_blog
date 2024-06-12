@@ -14,8 +14,6 @@ services:
       - /etc/letsencrypt/live/rubenvoss.de/fullchain.pem:/etc/letsencrypt/live/rubenvoss.de/fullchain.pem
       - /etc/letsencrypt/live/rubenvoss.de/privkey.pem:/etc/letsencrypt/live/rubenvoss.de/privkey.pem
     env_file: .env_production
-    environment:
-      DEBUG: 'true'
     # command: sh -c "python3 manage.py makemigrations && python3 manage.py migrate --noinput && python3 manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py rubens_blog.wsgi"
     command: /usr/local/bin/gunicorn --config gunicorn_config.py rubens_blog.wsgi
     networks:
