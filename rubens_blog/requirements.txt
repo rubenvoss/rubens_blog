@@ -1,5 +1,5 @@
 # django
-django==5.0.4
+django==5.0.6
 
 # postgresql database adapter
 psycopg2==2.9.9
