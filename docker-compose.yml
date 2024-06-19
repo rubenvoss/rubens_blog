@@ -1,5 +1,6 @@
 services:
   rubens_blog:
+    container_name: rubens_blog
     restart: always
     build: ./rubens_blog
     # ports:
