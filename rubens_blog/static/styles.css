@@ -1,3 +1,9 @@
+.navbar{
+    background-color: #F6F5D7;
+    margin:0%;
+    padding: 0%;
+    border: 1px solid rgb(0, 0, 0);
+}
 pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
 span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
