@@ -16,18 +16,29 @@ services:
     expose:
       - 3306
       - 33060
+    networks:
+      - proxy
+
   wordpress:
     image: wordpress:latest
     volumes:
       - wp_data:/var/www/html
     ports:
-      - 80:80
+      - "81"
     restart: always
     environment:
       - WORDPRESS_DB_HOST=db
       - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD=wordpress
       - WORDPRESS_DB_NAME=wordpress
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.rubens_blog.rule=Host(`rubenvoss.de`) || Host(`www.rubenvoss.de`)
+      - traefik.http.services.rubens_blog.loadbalancer.server.port=81
+
+      - traefik.http.middlewares.mywwwredirect.redirectregex.regex=^https://www\.(.*)
+      - traefik.http.middlewares.mywwwredirect.redirectregex.replacement=https://$${1}
+      - traefik.http.routers.rubens_blog.middlewares=mywwwredirect
 
   # rubens_blog:
   #   container_name: rubens_blog
