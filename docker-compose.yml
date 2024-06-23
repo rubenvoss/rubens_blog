@@ -39,7 +39,9 @@ services:
       - traefik.http.middlewares.mywwwredirect.redirectregex.regex=^https://www\.(.*)
       - traefik.http.middlewares.mywwwredirect.redirectregex.replacement=https://$${1}
       - traefik.http.routers.rubens_blog.middlewares=mywwwredirect
-
+    networks:
+      - proxy
+      
   # rubens_blog:
   #   container_name: rubens_blog
   #   restart: always
