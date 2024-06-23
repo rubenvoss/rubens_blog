@@ -24,7 +24,7 @@ services:
     volumes:
       - wp_data:/var/www/html
     ports:
-      - "81"
+      - "8000"
     restart: always
     environment:
       - WORDPRESS_DB_HOST=db
@@ -41,7 +41,7 @@ services:
       - traefik.http.routers.rubens_blog.middlewares=mywwwredirect
     networks:
       - proxy
-      
+
   # rubens_blog:
   #   container_name: rubens_blog
   #   restart: always
