@@ -19,7 +19,7 @@ services:
     networks:
       - proxy
 
-  wordpress:
+  rubens_blog:
     image: wordpress:latest
     volumes:
       - wp_data:/var/www/html
