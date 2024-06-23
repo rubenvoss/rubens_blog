@@ -1,47 +1,77 @@
 services:
-  rubens_blog:
-    container_name: rubens_blog
-    restart: always
-    build: ./rubens_blog
-    # ports:
-    #   - "8000:8000"
-    # expose:
-    #   - 8000
-    links:
-      - postgres:postgres
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb:10.6.4-focal
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql:8.0.27
+    command: '--default-authentication-plugin=mysql_native_password'
     volumes:
-      - ./rubens_blog/:/app
-      - /srv/www/static/:/srv/www/static/
-      - /etc/letsencrypt/live/rubenvoss.de/fullchain.pem:/etc/letsencrypt/live/rubenvoss.de/fullchain.pem
-      - /etc/letsencrypt/live/rubenvoss.de/privkey.pem:/etc/letsencrypt/live/rubenvoss.de/privkey.pem
-    env_file: .env_production
-    # command: sh -c "python3 manage.py makemigrations && python3 manage.py migrate --noinput && python3 manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py rubens_blog.wsgi"
-    command: /usr/local/bin/gunicorn --config gunicorn_config.py rubens_blog.wsgi
-    networks:
-      - proxy
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.rubens_blog.rule=Host(`rubenvoss.de`) || Host(`www.rubenvoss.de`)
-      - traefik.http.services.rubens_blog.loadbalancer.server.port=8000
-
-      - traefik.http.middlewares.mywwwredirect.redirectregex.regex=^https://www\.(.*)
-      - traefik.http.middlewares.mywwwredirect.redirectregex.replacement=https://$${1}
-      - traefik.http.routers.rubens_blog.middlewares=mywwwredirect
-
-  postgres:
-    container_name: postgres
+      - db_data:/var/lib/mysql
     restart: always
-    image: postgres:15.6
-    shm_size: 128mb
+    environment:
+      - MYSQL_ROOT_PASSWORD=somewordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
     expose:
-      - "5432"
+      - 3306
+      - 33060
+  wordpress:
+    image: wordpress:latest
     volumes:
-      - pgdata:/var/lib/postgresql/data/
-      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
-    env_file:
-      - .env_production
-    networks:
-      - proxy
+      - wp_data:/var/www/html
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+
+  # rubens_blog:
+  #   container_name: rubens_blog
+  #   restart: always
+  #   build: ./rubens_blog
+  #   # ports:
+  #   #   - "8000:8000"
+  #   # expose:
+  #   #   - 8000
+  #   links:
+  #     - postgres:postgres
+  #   volumes:
+  #     - ./rubens_blog/:/app
+  #     - /srv/www/static/:/srv/www/static/
+  #     - /etc/letsencrypt/live/rubenvoss.de/fullchain.pem:/etc/letsencrypt/live/rubenvoss.de/fullchain.pem
+  #     - /etc/letsencrypt/live/rubenvoss.de/privkey.pem:/etc/letsencrypt/live/rubenvoss.de/privkey.pem
+  #   env_file: .env_production
+  #   # command: sh -c "python3 manage.py makemigrations && python3 manage.py migrate --noinput && python3 manage.py collectstatic --noinput && gunicorn --config gunicorn_config.py rubens_blog.wsgi"
+  #   command: /usr/local/bin/gunicorn --config gunicorn_config.py rubens_blog.wsgi
+  #   networks:
+  #     - proxy
+  #   labels:
+  #     - traefik.enable=true
+  #     - traefik.http.routers.rubens_blog.rule=Host(`rubenvoss.de`) || Host(`www.rubenvoss.de`)
+  #     - traefik.http.services.rubens_blog.loadbalancer.server.port=8000
+
+  #     - traefik.http.middlewares.mywwwredirect.redirectregex.regex=^https://www\.(.*)
+  #     - traefik.http.middlewares.mywwwredirect.redirectregex.replacement=https://$${1}
+  #     - traefik.http.routers.rubens_blog.middlewares=mywwwredirect
+
+  # postgres:
+  #   container_name: postgres
+  #   restart: always
+  #   image: postgres:15.6
+  #   shm_size: 128mb
+  #   expose:
+  #     - "5432"
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data/
+  #     - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+  #   env_file:
+  #     - .env_production
+  #   networks:
+  #     - proxy
 
 
   traefik:
