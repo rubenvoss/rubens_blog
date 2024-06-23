@@ -41,6 +41,7 @@ services:
       - traefik.http.routers.rubens_blog.middlewares=mywwwredirect
     networks:
       - proxy
+    hostname: wordpress
 
   # rubens_blog:
   #   container_name: rubens_blog
