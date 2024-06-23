@@ -128,6 +128,8 @@ networks:
     name: proxy
 
 volumes:
-  pgdata:
+  # pgdata:
   letsencrypt:
     name: letsencrypt
+  db_data:
+  wp_data:
