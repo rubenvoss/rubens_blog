@@ -1,13 +1,78 @@
 services:
-  rubens_blog:
-    container_name: rubens_blog
-    restart: always
-    build: 
-      context: ./rubens_blog
-      dockerfile: Dockerfile.development
-    ports:
-      - "8000:8000"
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb:10.6.4-focal
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql:8.0.27
+    command: '--default-authentication-plugin=mysql_native_password'
     volumes:
-      - ./rubens_blog/:/app
-    env_file: .env
-    command: python manage.py runserver 0.0.0.0:8000
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=somewordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    expose:
+      - 3306
+      - 33060
+    networks:
+      - proxy
+
+  wordpress:
+    image: wordpress:latest
+    volumes:
+      - wp_data:/var/www/html
+    # ports:
+    #   - "8000"
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mywordpress.rule=Host(`wordpress.docker.localhost`)
+    networks:
+      - proxy
+    hostname: localhost
+
+  traefik:
+    image: traefik:v3.0
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    networks:
+      - proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # - letsencrypt:/letsencrypt
+      #- /var/log:/var/log
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    labels:
+      - traefik.enable=true
+
+  whoami:
+    image: traefik/whoami:v1.8
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mywhoami.rule=Host(`whoami.docker.localhost`)
+
+networks:
+  proxy:
+    name: proxy
+
+volumes:
+  letsencrypt:
+    name: letsencrypt
+  db_data:
+  wp_data:
